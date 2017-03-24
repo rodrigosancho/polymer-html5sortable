@@ -70,14 +70,12 @@
                     this.init();
                 });
             },
-
             detached: function () {
                 this.destroy();
             },
-
             init: function () {
                 var self = this,
-                    config = {};
+                        config = {};
 
                 //Adding config
                 Object.keys(this.properties).forEach(function (key) {
@@ -88,13 +86,11 @@
 
                 this.sortable = sortable(this, config);
             },
-
             destroy: function () {
                 if (this.sortable) {
                     sortable(this, 'destroy');
                 }
             },
-
             _onDisabledChanged: function (newValue, oldValue) {
                 if (this.sortable) {
                     if (newValue === false) {
@@ -114,8 +110,8 @@
              */
             _onSortstop: function (event) {
                 var item = event.detail.item,
-                    startparent = event.detail.startparent,
-                    repeaters, repeater, oldIndex, newIndex;
+                        startparent = event.detail.startparent,
+                        repeaters, repeater, oldIndex, newIndex;
 
                 if(startparent === this){
                     repeaters = startparent.querySelectorAll('template[is="dom-repeat"]');
@@ -141,30 +137,31 @@
              */
             _onSortupdate: function (event) {
                 var item = event.detail.item,
-                    startparent = event.detail.startparent,
-                    endparent = event.detail.endparent,
-                    repeaters, startRepeater, endRepeater, index, model;
+                        startparent = event.detail.startparent,
+                        endparent = event.detail.endparent,
+                        index, model;
 
                 if(endparent === this){
                     //Index
                     index = [].indexOf.call(this._getChildren(endparent), item);
                     //Obtaining the model of the new item
-                    repeaters = startparent.querySelectorAll('template[is="dom-repeat"]');
-                    startRepeater = repeaters[repeaters.length-1];
-                    model = startRepeater.modelForElement(item).item;
+                    model = this._getRepeater(startparent).modelForElement(item).item;
                     //Adding the new item
-                    repeaters = endparent.querySelectorAll('template[is="dom-repeat"]');
-                    endRepeater = repeaters[repeaters.length-1];
-                    endRepeater.splice('items', index, 0, model);
+                    this._getRepeater(endparent).splice('items', index, 0, model);
                 }
 
                 this.fire('sort-update', event);
             },
-
-            _getChildren: function(element){
-                return [].filter.call(element.children, function (child) {
+            _getChildren: function(node){
+                return [].filter.call(node.children, function (child) {
                     return child.tagName.toLowerCase() !== 'template';
                 });
+            },
+
+            _getRepeater: function(node){
+                return [].filter.call(node.children, function(child){
+                    return child.tagName.toLowerCase() === 'template' && child.is === 'dom-repeat'
+                })[0];
             }
         });
     </script>
