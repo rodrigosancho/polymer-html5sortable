@@ -49,6 +49,10 @@
                     type: Boolean,
                     value: false,
                     observer: '_onDisabledChanged'
+                },
+                placeholderClass: {
+                    type: String,
+                    value: ''
                 }
             },
 
@@ -60,9 +64,9 @@
 
             attached: function () {
                 //Reloading the sortable every time that dom-repeat changes
-                var repeaters = this.querySelectorAll('template[is="dom-repeat"]');
-                var repeater = repeaters[repeaters.length-1];
-                repeater.addEventListener('dom-change', function(){
+//                var repeaters = this.querySelectorAll('template[is="dom-repeat"]');
+//                var repeater = repeaters[repeaters.length-1];
+                this._getRepeater(this).addEventListener('dom-change', function(){
                     this.init();
                 }.bind(this));
 
