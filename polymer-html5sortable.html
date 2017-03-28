@@ -64,8 +64,6 @@
 
             attached: function () {
                 //Reloading the sortable every time that dom-repeat changes
-//                var repeaters = this.querySelectorAll('template[is="dom-repeat"]');
-//                var repeater = repeaters[repeaters.length-1];
                 this._getRepeater(this).addEventListener('dom-change', function(){
                     this.init();
                 }.bind(this));
@@ -79,7 +77,7 @@
             },
             init: function () {
                 var self = this,
-                        config = {};
+                    config = {};
 
                 //Adding config
                 Object.keys(this.properties).forEach(function (key) {
@@ -93,14 +91,15 @@
             destroy: function () {
                 if (this.sortable) {
                     sortable(this, 'destroy');
+                    delete this.sortable;
                 }
             },
             _onDisabledChanged: function (newValue, oldValue) {
                 if (this.sortable) {
                     if (newValue === false) {
-                        sortable(this, 'disable');
-                    } else {
                         sortable(this, 'enable');
+                    } else {
+                        sortable(this, 'disable');
                     }
                 }
             },

@@ -13,7 +13,7 @@
 
 <div class="clearfix mb2 white bg-navy">
     <div class="left">
-        <a href="index.html" class="button py2 m0 button-transparent">&lt;polymer-html5sortable&gt;</a>
+        <a href="index.html" class="button py2 m0 button-transparent">&lt;html5-sortable&gt;</a>
     </div>
     <div class="right">
         <a href="https://github.com/lukasoppermann/html5sortable/fork" class="button py2 m0 button-transparent">Fork on
@@ -25,25 +25,15 @@
         <div class="p3 navy bg-yellow">
             <div class="flex flex-column">
                 <h1 class="h1 m0 flex-auto">
-                    HTML5 Sortable
+                    Polymer HTML5 Sortable
                 </h1>
                 <h2 class="h3 m0">
-                    Lightweight standalone library for creating sortable lists and grids using native HTML5 drag and
-                    drop API.
+                    Webcomponent wrapper for the <a href="https://github.com/lukasoppermann/html5sortable">html5 Sortable library</a> made with Polymer.
                 </h2>
-            </div>
-            <div class="sm-flex flex-center mxn2">
-                <div class="flex-auto px0 py2">
-                    <ul>
-                        <li>Only 2KB (minified and gzipped).</li>
-                        <li>Built using native HTML5 drag and drop API.</li>
-                        <li>Supports both list and grid style layouts.</li>
-                        <li>Works in IE 5.5+, Firefox 3.5+, Chrome 3+, Safari 3+ and, Opera 12+.</li>
-                    </ul>
-                </div>
             </div>
         </div>
     </section>
+    <!-- Demo 1 -->
     <template is="dom-bind"
               id="demo1">
         <section class="mb3 mx-auto col col-12">
@@ -82,6 +72,7 @@
             demo1.items = ['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6'];
         </script>
     </template>
+    <!-- Demo 2 -->
     <template is="dom-bind"
               id="demo2">
         <section class="mb3 mx-auto col col-12">
@@ -126,7 +117,7 @@
             demo2.items = ['1', '2', '3', '4', '5'];
         </script>
     </template>
-
+    <!-- Demo 3 -->
     <template is="dom-bind"
               id="demo3">
         <section class="mb3 mx-auto col col-12">
@@ -157,7 +148,7 @@
                     </div>
                 </div>
                 <div class="col col-6">
-                    <ul class="ml4 js-sortable-disabled list flex flex-column list-reset">
+                        <ul class="ml4 js-sortable-disabled list flex flex-column list-reset">
                         <html5-sortable items=":not([disabled])"
                                         placeholder-class="border border-orange mb1"
                                         force-placeholder-size>
@@ -231,7 +222,7 @@
             ];
         </script>
     </template>
-
+    <!-- Demo 4 -->
     <template is="dom-bind" id="demo4">
         <section class="mb3 mx-auto col col-12">
             <div class="p3 bg-white orange col col-6">
@@ -274,37 +265,44 @@
             <div class="p3 bg-orange white col col-6">
                 <div class="px3 py2 border border-white mb1">
                     <code class="mb0">
-                        <div class="muted">// white & orange items</div>
-                        <div>sortable('.o-sortable', {</div>
-                        <div class="px2">connectWith: 'js-connected'</div>
-                        <div>});</div>
-                        <div class="muted">// blue items</div>
-                        <div>sortable('.o-sortable-inner', {</div>
-                        <div class="px2">connectWith: 'js-inner-connected'</div>
-                        <div>});</div>
+
                     </code>
                 </div>
                 <ul class="js-sortable-connected list flex flex-column list-reset">
-                    <li class="p1 mb1 border border-orange orange bg-white"><span class="js-handle px1">||</span>Item 1</li>
-                    <li class="p1 mb1 border border-orange orange bg-white"><span class="js-handle px1">||</span>Item 2</li>
-                    <li class="p1 mb1 border border-orange orange bg-white"><span class="js-handle px1">||</span>Item 3</li>
-                    <li class="p1 mb1 border border-orange orange bg-white">
-                        <div class="mb1"><span class="js-handle px1">||</span>Item 4</div>
-                        <ul class="js-sortable-inner-connected list flex flex-column list-reset mb0">
-                            <li class="p1 mb1 border border-blue white bg-blue"><span class="js-inner-handle px1">||</span>Inner
-                                item 3
+                    <html5-sortable connect-with="js-connected"
+                                    handle=".js-handle"
+                                    items="li"
+                                    placeholder-class="border border-white bg-orange mb1">
+                        <template is="dom-repeat"
+                                  items="[[ setItems1 ]]">
+                            <li class="p1 mb1 border border-orange orange bg-white">
+                                <span class="js-handle px1">||</span>[[ item.label ]]
+                                <template is="dom-if"
+                                          if="{{ _hasChildren(item) }}">
+                                    <ul class="mt1 js-sortable-inner-connected list flex flex-column list-reset m0">
+                                        <html5-sortable connect-with="js-inner-connected"
+                                                        handle=".js-handle"
+                                                        items="li"
+                                                        placeholder-class="border border-white bg-orange mb1">
+                                            <template is="dom-repeat"
+                                                      items="[[ item.children ]]"
+                                                      as="child">
+                                                <li class="p1 mb1 border border-blue white bg-blue">
+                                                    <span class="js-inner-handle px1">||</span> [[ child.label ]]
+                                                </li>
+                                            </template>
+                                        </html5-sortable>
+                                    </ul>
+                                </template>
                             </li>
-                            <li class="p1 mb1 border border-blue white bg-blue"><span class="js-inner-handle px1">||</span>Inner
-                                item 4
-                            </li>
-                        </ul>
-                    </li>
+                        </template>
+                    </html5-sortable>
                 </ul>
             </div>
         </section>
         <script>
             var demo4 = document.querySelector('template#demo4');
-            demo4._hasChildren = function(item) {
+            demo4._hasChildren = function (item) {
                 return (item.children && item.children.length > 0);
             };
             demo4.setItems1 = [
@@ -395,91 +393,132 @@
             ];
         </script>
     </template>
+    <!-- Demo 5 -->
+    <template is="dom-bind"
+              id="demo5">
+        <section class="mb3 mx-auto col col-12">
+            <div class="p3 clearfix bg-blue white">
+                <div class="col col-6">
+                    <h2 class="h3 m0">
+                        Methods and properties
+                    </h2>
+                    <div class="mt2 p2 bg-blue border border-white">
+                        <code class="mb0">
+                            <div class="muted">// enabled list</div>
+                            <div class="px1"> &lt;html5-sortable&gt;</div>
+                            <div class="px2 muted">...</div>
+                            <div class="muted">// disabled list</div>
+                            <div class="px1"> &lt;html5-sortable disabled&gt;</div>
+                            <div class="px2 muted">...</div>
+                            <div class="muted">// initializing</div>
+                            <div class="px1"> document.querySelector('html5-sortable').init()</div>
+                            <div class="px1 muted">// if jQuery is available</div>
+                            <div class="px1"> $('html5-sortable').init()</div>
+                            <div class="muted">// destroying</div>
+                            <div class="px1"> document.querySelector('html5-sortable').destroy()</div>
+                            <div class="px1 muted">// if jQuery is available</div>
+                            <div class="px1"> $('html5-sortable').destroy()</div>
 
-    <section class="mb3 mx-auto col col-12">
-        <div class="p3 clearfix bg-blue white">
-            <div class="col col-6">
-                <h2 class="h3 m0">
-                    Exclude items & nested list
-                </h2>
-                <div class="mt2 p2 bg-blue border border-white">
-                    <code class="mb0">
-                        <div class="muted">// disabled / enable list</div>
-                        <div>sortable('.o-sortable', 'disable');</div>
-                        <div>sortable('.o-sortable', 'enable');</div>
-                        <div class="muted mt2">// reload list after adding items</div>
-                        <div>sortable('.o-sortable', 'reload');</div>
+
+                        </code>
+                    </div>
+                </div>
+                <div class="col col-6">
+                    <ul class="ml4 js-sortable-buttons list flex flex-column list-reset" data-disabled=false>
+                        <html5-sortable id="configExample"
+                                        force-placeholder-file
+                                        items="li"
+                                        placeholder-class="border border-white mb1"
+                                        disabled$="[[ disabled ]]">
+                            <template is="dom-repeat"
+                                      items="[[ items ]]">
+                                <li class="p1 mb1 blue bg-white">[[ item ]]</li>
+                            </template>
+                        </html5-sortable>
+                    </ul>
+                    <div class="center py2 ml4">
+                        <button class="js-disable button blue bg-white" on-click="toggle">Disable</button>
+                        <button class="js-add-item-button button blue bg-white" on-click="addItem">Add item</button>
+                        <button class="js-reload button button-outline white" on-click="init">Re-init</button>
+                    </div>
+                    <div class="center py1 ml4">
+                        <button class="js-destroy button blue bg-white" on-click="destroy">Destroy</button>
+                        <button class="js-init button blue bg-white" on-click="init">Init</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+            var demo5 = document.querySelector('template#demo5');
+            demo5.items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6'];
+            demo5.addItem = function () {
+                if (demo5.disabled == false) {
+                    demo5.push('items', 'New item');
+                }
+            };
+
+            demo5.set('disabled', false);
+            demo5.toggle = function () {
+                var disabled = demo5.get('disabled');
+
+                document.querySelector("button.js-disable").innerHTML = (disabled) ? 'Disable' : 'Enable';
+                demo5.set('disabled', !disabled);
+
+            };
+            demo5.destroy = function () {
+                var sortable = document.querySelector("html5-sortable#configExample");
+                sortable.destroy();
+            };
+            demo5.init = function () {
+                var sortable = document.querySelector("html5-sortable#configExample");
+                sortable.init();
+            };
+        </script>
+    </template>
+    <!-- Demo 6 -->
+    <template is="dom-bind"
+              id="demo6">
+        <section class="mb3 mx-auto col col-12">
+            <div class="p3 clearfix bg-teal white">
+                <div class="col col-6">
+                    <h2 class="h3 m0">
+                        Handling events
+                    </h2>
+                    The emitted events are:
+                    <code class="yellow">sort-start</code>, <code class="yellow">sort-update</code> and
+                    <code class="yellow">sort-stop</code><br>
+                    Events can be captured in a more declarative way:
+                    <code class="yellow">
+                        <div>&lt;html5-sortable on-sort-start=&quot;logEvent&quot; on-sort-stop=&quot;logEvent&quot; &nbsp;on-sort-update=&quot;logEvent&quot;&gt;</div>
+                        <div>&lt;/html5-sortable&gt;</div>
                     </code>
+                    <br>
+                    (Open the developer's console to see the log)
+                </div>
+                <div class="col col-6">
+                    <ul class="ml4 js-sortable sortable list flex flex-column list-reset">
+                        <html5-sortable placeholder-class="p1 mb1 bg-tail border border-yellow"
+                                        on-sort-start="logEvent"
+                                        on-sort-stop="logEvent"
+                                        on-sort-update="logEvent"
+                                        force-placeholder-size>
+                            <template is="dom-repeat"
+                                      items="[[ items ]]">
+                                <li class="p1 mb1 navy bg-yellow" style="position: relative; z-index: 10">[[ item ]]
+                                </li>
+                            </template>
+                        </html5-sortable>
+                    </ul>
                 </div>
             </div>
-            <div class="col col-6">
-                <ul class="ml4 js-sortable-buttons list flex flex-column list-reset" data-disabled=false>
-                    <li class="p1 mb1 blue bg-white">Item 1</li>
-                    <li class="p1 mb1 blue bg-white">Item 2</li>
-                    <li class="p1 mb1 blue bg-white">Item 3</li>
-                    <li class="p1 mb1 blue bg-white">Item 4</li>
-                    <li class="p1 mb1 blue bg-white">Item 6</li>
-                    <li class="p1 mb1 blue bg-white">Item 6</li>
-                </ul>
-                <div class="center py2 ml4">
-                    <button class="js-disable button blue bg-white" data-text="Enable">Disable</button>
-                    <button class="js-add-item-button button blue bg-white">Add item</button>
-                    <button class="js-reload button button-outline white">Re-init</button>
-                </div>
-                <div class="center py1 ml4">
-                    <button class="js-destroy button blue bg-white">Destroy</button>
-                    <button class="js-init button blue bg-white">Init</button>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="mb3 mx-auto col col-12">
-        <div class="p3 clearfix bg-teal white">
-            <div class="col col-4">
-                <h2 class="h3 m0">
-                    Sortable Table
-                </h2>
-                Tables rows can be sorted too, by making the container the
-                <code class="yellow">tbody</code> and setting the <code class="yellow">items</code>
-                property to <code class="yellow">tr</code>.
-            </div>
-            <div class="col col-6">
-                <table class="ml4">
-                    <thead class="bg-yellow">
-                    <tr>
-                        <td class="black">Food</td>
-                        <td class="black">Topping</td>
-                        <td class="black">Absolutely No</td>
-                    </tr>
-                    </thead>
-                    <tbody class="js-sortable-table">
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr class="border bg-white navy p4 js-sortable-tr">
-                        <td>Taco</td>
-                        <td>Salsa</td>
-                        <td>Pickles</td>
-                    </tr>
-                    <tr class="border bg-white navy p4 js-sortable-tr">
-                        <td>Burger</td>
-                        <td>Lettuce</td>
-                        <td>Rice</td>
-                    </tr>
-                    <tr class="border bg-white navy p4 js-sortable-tr">
-                        <td>Pad Thai</td>
-                        <td>Crushed Red Pepper</td>
-                        <td>Spaghetti Noodles</td>
-                    </tr>
-                    <tr class="border bg-white navy p4 js-sortable-tr">
-                        <td>Bratwurst</td>
-                        <td>Sourkraut</td>
-                        <td>Jelly</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+        </section>
+        <script>
+            var demo6 = document.querySelector('template#demo6');
+            demo6.items = ['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6'];
+            demo6.logEvent = function(event){
+                console.log(event.type);
+            }
+        </script>
+    </template>
 </div>
 </body>
