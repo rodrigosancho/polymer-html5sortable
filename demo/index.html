@@ -42,12 +42,12 @@
                     <h2 class="h3 m0">
                         Sortable List
                     </h2>
-                    <div class="mt2 p2 bg-navy border yellow border-yellow">
+                    <div class="mt2 p2 bg-navy border yellow border-yellow code-viewer">
                         <code class="mb0">
                             <div>&lt;ul&gt;</div>
                             <div class="px1"> &lt;html5-sortable&gt;</div>
-                            <div class="px2">&lt;template is=&quot;dom-repeat&quot; items=&quot;&quot;&gt;</div>
-                            <div class="px3">&lt;li&gt;&#91;&#91; item &#93;&#93;&lt;/li&gt;</div>
+                            <div class="px2">&lt;template is=&quot;dom-repeat&quot; items=&quot;[&shy;[ items ]&shy;]&quot;&gt;</div>
+                            <div class="px3">&lt;li&gt;[&shy;[ item ]&shy;]&lt;/li&gt;</div>
                             <div class="px2">&lt;/template&gt;</div>
                             <div class="px1"> &lt;/html5-sortable&gt;</div>
                             <div>&lt;/ul&gt;</div>
@@ -83,13 +83,13 @@
                     </h2>
                 </div>
                 <div class="col col-6">
-                    <div class="p2 bg-yellow border maroon border-maroon mt1">
+                    <div class="p2 bg-yellow border maroon border-maroon mt1 code-viewer">
                         <code class="mb0">
                             <div>&lt;div&gt;</div>
                             <div class="px1"> &lt;html5-sortable&gt;</div>
-                            <div class="px2">&lt;template is=&quot;dom-repeat&quot; items=&quot;&quot;&gt;</div>
+                            <div class="px2">&lt;template is=&quot;dom-repeat&quot; items=&quot;[&shy;[ items ]&shy;]&quot;&gt;</div>
                             <div class="px3">&lt;div&gt;</div>
-                            <div class="px4">&lt;li&gt;&#91;&#91; item &#93;&#93;&lt;/li&gt;</div>
+                            <div class="px4">&lt;li&gt;[&shy;[ item ]&shy;]&lt;/li&gt;</div>
                             <div class="px3">&lt;/div&gt;</div>
                             <div class="px2">&lt;/template&gt;</div>
                             <div class="px1"> &lt;/html5-sortable&gt;</div>
@@ -126,17 +126,17 @@
                     <h2 class="h3 m0">
                         Exclude items & nested list
                     </h2>
-                    <div class="mt2 p2 bg-maroon border border-orange">
+                    <div class="mt2 p2 bg-maroon border border-orange code-viewer">
                         <code class="mb0">
                             <div>&lt;ul&gt;</div>
                             <div class="px1">&lt;html5-sortable items=&quot;:not([disabled])&quot;&gt;</div>
-                            <div class="px2">&lt;template is=&quot;dom-repeat&quot; items=&quot;&quot;&gt;</div>
-                            <div class="px3">&lt;li disabled$=&quot;{{ item.disabled }}&quot;&gt;</div>
-                            <div class="px4">[[ item.label ]]</div>
+                            <div class="px2">&lt;template is=&quot;dom-repeat&quot; items=&quot;[&shy;[ items ]&shy;]&quot;&gt;</div>
+                            <div class="px3">&lt;li disabled$=&quot;[&shy;[ item.disabled ]&shy;]&quot;&gt;</div>
+                            <div class="px4">[&shy;[ item.label ]&shy;]</div>
                             <div class="px4">&lt;ul&gt;</div>
                             <div class="px5">&lt;html5-sortable&gt;</div>
-                            <div class="px6">&lt;template is=&quot;dom-repeat&quot; items=&quot;&quot; as=&quot;child&quot;&gt;</div>
-                            <div class="px7">&lt;li disabled$=&quot;&quot;&gt;&lt;/li&gt;</div>
+                            <div class="px6">&lt;template is=&quot;dom-repeat&quot; items=&quot;[&shy;[ item.children ]&shy;]&quot; as=&quot;child&quot;&gt;</div>
+                            <div class="px7">&lt;li disabled$=&quot;[&shy;[ child.disabled ]&shy;]&quot;&gt;&lt;/li&gt;</div>
                             <div class="px6">&lt;/template&gt;</div>
                             <div class="px5">&lt;/html5-sortable&gt;</div>
                             <div class="px4">&lt;/ul&gt;</div>
@@ -153,13 +153,13 @@
                                         placeholder-class="border border-orange mb1"
                                         force-placeholder-size>
                             <template is="dom-repeat" items="[[ items ]]">
-                                <li disabled$="{{ item.disabled }}" class="p1 mb1 maroon bg-orange">
+                                <li disabled$="[[ item.disabled ]]" class="p1 mb1 maroon bg-orange">
                                     [[ item.label ]]
                                     <ul class="list-reset m0 js-sortable-disabled-inner">
                                         <html5-sortable placeholder-class="border border-maroon mb1"
                                                         force-placeholder-size>
                                             <template is="dom-repeat" items="[[ item.children ]]" as="child">
-                                                <li disabled$="{{ child.disabled }}" class="p1 mb1 bg-maroon orange">[[
+                                                <li disabled$="[[ child.disabled ]]" class="p1 mb1 bg-maroon orange">[[
                                                     child.label ]]
                                                 </li>
                                             </template>
@@ -230,11 +230,35 @@
                     Connected lists
                 </h2>
                 <p>Connected: This means an item can be dragged into another (connected) list.</p>
-                <p class="mb2">Handles: Elements, e.g. || an item can be dragged with.</p>
+                <div class="px3 py2 border border-orange mb1 code-viewer">
+                    <code>
+                        <div class="muted"><&shy;!-- Left column --></div>
+                        <div>&lt;ul&gt;</div>
+                        <div class="px1">&lt;html5-sortable connect-with=&quot;js-connected&quot; handle=&quot;.js-handle&quot; items=&quot;li&quot;&gt;</div>
+                        <div class="px2">&lt;template is=&quot;dom-repeat&quot;items=&quot;[&shy;[ setItems1 ]&shy;]&quot;&gt;</div>
+                        <div class="px3">&lt;li&gt;</div>
+                        <div class="px4">&lt;span class=&quot;js-handle&quot;&gt;||&lt;/span&gt;[&shy;[ item.label ]&shy;]</div>
+                        <div class="px4">&lt;template is=&quot;dom-if&quot; if=&quot;{&shy;{ _hasChildren(item) }&shy;}&quot;&gt;</div>
+                        <div class="px5">&lt;ul&gt;</div>
+                        <div class="px6">&lt;html5-sortable connect-with=&quot;js-inner-connected&quot; handle=&quot;.js-inner-handle&quot; items=&quot;li&quot;&gt;</div>
+                        <div class="px7">&lt;template is=&quot;dom-repeat&quot; items=&quot;[&shy;[ item.children ]&shy;]&quot; as=&quot;child&quot;&gt;</div>
+                        <div class="px8">&lt;li&gt; &lt;span class=&quot;js-inner-handle&quot;&gt;||&lt;/span&gt; [&shy;[ child.label ]&shy;] &lt;/li&gt;</div>
+                        <div class="px7">&lt;/template&gt;</div>
+                        <div class="px6">&lt;/html5-sortable&gt;</div>
+                        <div class="px5">&lt;/ul&gt;</div>
+                        <div class="px4">&lt;/template&gt;</div>
+                        <div class="px3">&lt;/li&gt;</div>
+                        <div class="px2">&lt;/template&gt;</div>
+                        <div class="px1">&lt;/html5-sortable&gt;</div>
+                        <div>&lt;/ul&gt;</div>
+                    </code>
+                </div>
+
                 <ul class="js-sortable-connected list flex flex-column list-reset">
                     <html5-sortable connect-with="js-connected"
                                     handle=".js-handle"
                                     items="li"
+                                    force-placeholder-size
                                     placeholder-class="border border-white bg-orange mb1">
                         <template is="dom-repeat"
                                   items="[[ setItems1 ]]">
@@ -244,8 +268,9 @@
                                           if="{{ _hasChildren(item) }}">
                                     <ul class="mt1 js-sortable-inner-connected list flex flex-column list-reset m0">
                                         <html5-sortable connect-with="js-inner-connected"
-                                                        handle=".js-handle"
+                                                        handle=".js-inner-handle"
                                                         items="li"
+                                                        force-placeholder-size
                                                         placeholder-class="border border-white bg-orange mb1">
                                             <template is="dom-repeat"
                                                       items="[[ item.children ]]"
@@ -263,15 +288,34 @@
                 </ul>
             </div>
             <div class="p3 bg-orange white col col-6">
-                <div class="px3 py2 border border-white mb1">
+                <div class="px3 py2 border border-white mb1 code-viewer">
                     <code class="mb0">
-
+                        <div class="muted"><&shy;!-- Right column --></div>
+                        <div>&lt;ul&gt;</div>
+                        <div class="px1">&lt;html5-sortable connect-with=&quot;js-connected&quot; handle=&quot;.js-handle&quot; items=&quot;li&quot;&gt;</div>
+                        <div class="px2">&lt;template is=&quot;dom-repeat&quot;items=&quot;[&shy;[ setItems2 ]&shy;]&quot;&gt;</div>
+                        <div class="px3">&lt;li&gt;</div>
+                        <div class="px4">&lt;span class=&quot;js-handle&quot;&gt;||&lt;/span&gt;[&shy;[ item.label ]&shy;]</div>
+                        <div class="px4">&lt;template is=&quot;dom-if&quot; if=&quot;{&shy;{ _hasChildren(item) }&shy;}&quot;&gt;</div>
+                        <div class="px5">&lt;ul&gt;</div>
+                        <div class="px6">&lt;html5-sortable connect-with=&quot;js-inner-connected&quot; handle=&quot;.js-inner-handle&quot; items=&quot;li&quot;&gt;</div>
+                        <div class="px7">&lt;template is=&quot;dom-repeat&quot; items=&quot;[&shy;[ item.children ]&shy;]&quot; as=&quot;child&quot;&gt;</div>
+                        <div class="px8">&lt;li&gt; &lt;span class=&quot;js-inner-handle&quot;&gt;||&lt;/span&gt; [&shy;[ child.label ]&shy;] &lt;/li&gt;</div>
+                        <div class="px7">&lt;/template&gt;</div>
+                        <div class="px6">&lt;/html5-sortable&gt;</div>
+                        <div class="px5">&lt;/ul&gt;</div>
+                        <div class="px4">&lt;/template&gt;</div>
+                        <div class="px3">&lt;/li&gt;</div>
+                        <div class="px2">&lt;/template&gt;</div>
+                        <div class="px1">&lt;/html5-sortable&gt;</div>
+                        <div>&lt;/ul&gt;</div>
                     </code>
                 </div>
                 <ul class="js-sortable-connected list flex flex-column list-reset">
                     <html5-sortable connect-with="js-connected"
                                     handle=".js-handle"
                                     items="li"
+                                    force-placeholder-size
                                     placeholder-class="border border-white bg-orange mb1">
                         <template is="dom-repeat"
                                   items="[[ setItems1 ]]">
@@ -281,8 +325,9 @@
                                           if="{{ _hasChildren(item) }}">
                                     <ul class="mt1 js-sortable-inner-connected list flex flex-column list-reset m0">
                                         <html5-sortable connect-with="js-inner-connected"
-                                                        handle=".js-handle"
+                                                        handle=".js-inner-handle"
                                                         items="li"
+                                                        force-placeholder-size
                                                         placeholder-class="border border-white bg-orange mb1">
                                             <template is="dom-repeat"
                                                       items="[[ item.children ]]"
@@ -298,6 +343,7 @@
                         </template>
                     </html5-sortable>
                 </ul>
+                <p class="mb2 white">Handles: Elements, e.g. || an item can be dragged with.</p>
             </div>
         </section>
         <script>
@@ -402,7 +448,7 @@
                     <h2 class="h3 m0">
                         Methods and properties
                     </h2>
-                    <div class="mt2 p2 bg-blue border border-white">
+                    <div class="mt2 p2 bg-blue border border-white code-viewer">
                         <code class="mb0">
                             <div class="muted">// enabled list</div>
                             <div class="px1"> &lt;html5-sortable&gt;</div>
@@ -426,7 +472,7 @@
                 <div class="col col-6">
                     <ul class="ml4 js-sortable-buttons list flex flex-column list-reset" data-disabled=false>
                         <html5-sortable id="configExample"
-                                        force-placeholder-file
+                                        force-placeholder-size
                                         items="li"
                                         placeholder-class="border border-white mb1"
                                         disabled$="[[ disabled ]]">
@@ -488,10 +534,12 @@
                     <code class="yellow">sort-start</code>, <code class="yellow">sort-update</code> and
                     <code class="yellow">sort-stop</code><br>
                     Events can be captured in a more declarative way:
-                    <code class="yellow">
-                        <div>&lt;html5-sortable on-sort-start=&quot;logEvent&quot; on-sort-stop=&quot;logEvent&quot; &nbsp;on-sort-update=&quot;logEvent&quot;&gt;</div>
-                        <div>&lt;/html5-sortable&gt;</div>
-                    </code>
+                    <div class="mt2 p2 bg-tail border border-yellow code-viewer">
+                        <code class="yellow">
+                            <div>&lt;html5-sortable on-sort-start=&quot;logEvent&quot; on-sort-stop=&quot;logEvent&quot; on-sort-update=&quot;logEvent&quot;&gt;</div>
+                            <div>&lt;/html5-sortable&gt;</div>
+                        </code>
+                    </div>
                     <br>
                     (Open the developer's console to see the log)
                 </div>

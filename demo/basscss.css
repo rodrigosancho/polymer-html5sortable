@@ -289,6 +289,10 @@ h6, .h6 { font-size: .75rem }
 .py7 { padding-top: 3.5rem; padding-bottom: 3.5rem }
 .px7 { padding-left: 3.5rem; padding-right: 3.5rem }
 
+.p8  { padding: 4rem }
+.py8 { padding-top: 4rem; padding-bottom: 4rem }
+.px8 { padding-left: 4rem; padding-right: 4rem }
+
 .sm-show, .md-show, .lg-show {
     display: none !important
 }
@@ -1116,3 +1120,8 @@ input[type=range] {
 .border-darken-3 { border-color: rgba(0,0,0,.25) }
 .border-darken-4 { border-color: rgba(0,0,0,.5) }
 .muted, [disabled] { opacity: .5 }
+
+.code-viewer {
+    overflow: auto;
+    white-space: nowrap;
+}

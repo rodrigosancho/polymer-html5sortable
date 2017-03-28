@@ -18,13 +18,9 @@
 
             properties: {
                 /** Use items option to specify which items inside the element should be sortable */
-                items: {
-                    type: String
-                },
+                items: String,
                 /** Use handle option to restrict drag start to the specified element */
-                handle: {
-                    type: String
-                },
+                handle: String,
                 /** Setting forcePlaceholderSize option to true, forces the placeholder to have a height */
                 forcePlaceholderSize: {
                     type: Boolean,
@@ -38,21 +34,18 @@
                     }
                 },
                 /** Use placeholder option to specify the markup of the placeholder. Example `<tr><td colspan="7">&nbsp;</td></tr>` */
-                placeholder: {
-                    type: String
-                },
+                placeholder: String,
                 /** Use hoverClass option to specify applying a css class to the hovered element rather than relying on :hover. This can eliminate some potential drag and drop issues where another element thinks it is being hovered over. */
-                hoverClass: {
-                    type: String
-                },
+                hoverClass: String,
+                /** Use placeholderClass option to specify applying a css class to the placeholder element.*/
+                placeholderClass: String,
+                /** Use draggingClass option to specify applying a css class to the dragging element.*/
+                draggingClass: String,
+                /** User disabled option to prevent an a list to be reordered or modified.*/
                 disabled: {
                     type: Boolean,
                     value: false,
                     observer: '_onDisabledChanged'
-                },
-                placeholderClass: {
-                    type: String,
-                    value: ''
                 }
             },
 
@@ -64,11 +57,11 @@
 
             attached: function () {
                 //Reloading the sortable every time that dom-repeat changes
-                this._getRepeater(this).addEventListener('dom-change', function(){
+                this._getRepeater(this).addEventListener('dom-change', function () {
                     this.init();
                 }.bind(this));
 
-                this.async(function(){
+                this.async(function () {
                     this.init();
                 });
             },
@@ -77,7 +70,7 @@
             },
             init: function () {
                 var self = this,
-                    config = {};
+                        config = {};
 
                 //Adding config
                 Object.keys(this.properties).forEach(function (key) {
@@ -106,31 +99,7 @@
             _onSortstart: function (event) {
                 this.fire('sort-start', event);
             },
-            /**
-             * This callback is called every time that an element in a list is moved
-             * @param event
-             * @private
-             */
             _onSortstop: function (event) {
-                var item = event.detail.item,
-                        startparent = event.detail.startparent,
-                        repeaters, repeater, oldIndex, newIndex;
-
-                if(startparent === this){
-                    repeaters = startparent.querySelectorAll('template[is="dom-repeat"]');
-                    repeater = repeaters[repeaters.length-1];
-                    //Old index
-                    oldIndex = repeater.indexForElement(item);
-                    //New index
-                    newIndex = [].indexOf.call(this._getChildren(startparent), item);
-                    //Applying the new order or removing the old value if needed
-                    if(newIndex < 0){
-                        repeater.splice('items', oldIndex, 1);
-                    }else{
-                        repeater.splice('items', newIndex, 0, repeater.splice('items', oldIndex, 1)[0]);
-                    }
-                }
-
                 this.fire('sort-stop', event);
             },
             /**
@@ -140,29 +109,37 @@
              */
             _onSortupdate: function (event) {
                 var item = event.detail.item,
-                        startparent = event.detail.startparent,
-                        endparent = event.detail.endparent,
-                        index, model;
+                    startparent = event.detail.startparent,
+                    startrepeater = this._getRepeater(startparent),
+                    index = event.detail.index,
+                    endparent = event.detail.endparent,
+                    endrepeater = this._getRepeater(endparent),
+                    oldindex = event.detail.oldindex,
+                    model;
 
-                if(endparent === this){
-                    //Index
-                    index = [].indexOf.call(this._getChildren(endparent), item);
+                if (endparent === this && startparent === this) {
+                    //Moving the element to this new index
+                    endrepeater.splice('items', index, 0, endrepeater.splice('items', oldindex, 1)[0]);
+                } else if(endparent === this){
+                    //Adding the element into the new parent
                     //Obtaining the model of the new item
-                    model = this._getRepeater(startparent).modelForElement(item).item;
-                    //Adding the new item
-                    this._getRepeater(endparent).splice('items', index, 0, model);
+                    model = startrepeater.modelForElement(item).item;
+                    endrepeater.splice('items', index, 0, model);
+                } else if(startparent == this) {
+                    //Removing the element from the old parent
+                    startrepeater.splice('items', oldindex, 1);
                 }
 
                 this.fire('sort-update', event);
             },
-            _getChildren: function(node){
+            _getChildren: function (node) {
                 return [].filter.call(node.children, function (child) {
                     return child.tagName.toLowerCase() !== 'template';
                 });
             },
 
-            _getRepeater: function(node){
-                return [].filter.call(node.children, function(child){
+            _getRepeater: function (node) {
+                return [].filter.call(node.children, function (child) {
                     return child.tagName.toLowerCase() === 'template' && child.is === 'dom-repeat'
                 })[0];
             }
