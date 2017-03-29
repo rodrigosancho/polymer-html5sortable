@@ -82,7 +82,7 @@ model synchronized and ready to be used.
     </template>
     <script>
         Polymer({
-            is: 'tree',
+            is: 'sortable-tree',
             properties : {
                 rootNode: Object
             }

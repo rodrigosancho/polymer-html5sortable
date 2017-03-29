@@ -86,7 +86,7 @@ model synchronized and ready to be used.
     </template>
     <script>
         Polymer({
-            is: 'tree',
+            is: 'sortable-tree',
             properties : {
                 rootNode: Object
             }
@@ -245,11 +245,14 @@ Showing the tree
                 var item = event.detail.item,
                     startparent = event.detail.startparent,
                     startrepeater = this._getRepeater(startparent),
-                    index = event.detail.index,
                     endparent = event.detail.endparent,
                     endrepeater = this._getRepeater(endparent),
-                    oldindex = event.detail.oldindex,
-                    model = startrepeater.modelForElement(item)[startrepeater.as];
+                    model = startrepeater.modelForElement(item)[startrepeater.as],
+                    index, oldindex;
+
+                //The index returned by the event, are not correct because it excludes those which are no selectable
+                index = [].indexOf.call(endparent.children, item);
+                oldindex = endrepeater.indexForElement(item);
 
                 if (endparent === this && startparent === this) {
                     //Moving the element to this new index

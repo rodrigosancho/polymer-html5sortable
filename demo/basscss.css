@@ -1119,7 +1119,7 @@ input[type=range] {
 .border-darken-2 { border-color: rgba(0,0,0,.125) }
 .border-darken-3 { border-color: rgba(0,0,0,.25) }
 .border-darken-4 { border-color: rgba(0,0,0,.5) }
-.muted, [disabled] { opacity: .5 }
+.disabled, .muted, [disabled] { opacity: .5 }
 
 .code-viewer {
     overflow: auto;
