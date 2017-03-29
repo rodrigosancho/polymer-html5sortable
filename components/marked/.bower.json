@@ -1,0 +1,28 @@
+{
+  "name": "marked",
+  "version": "v0.3.6",
+  "homepage": "https://github.com/chjj/marked",
+  "authors": [
+    "Christopher Jeffrey <chjjeffrey@gmail.com>"
+  ],
+  "description": "A markdown parser built for speed",
+  "keywords": [
+    "markdown",
+    "markup",
+    "html"
+  ],
+  "main": "lib/marked.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "_source": "nexus+http://nexus.hola.com/repository/bower/marked",
+  "_target": "~0.3.3",
+  "_release": "v0.3.6",
+  "_originalSource": "marked"
+}

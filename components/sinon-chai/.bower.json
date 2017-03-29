@@ -1,0 +1,8 @@
+{
+  "name": "sinon-chai",
+  "_source": "nexus+http://nexus.hola.com/repository/bower/sinon-chai",
+  "_target": "^2.7.0",
+  "_release": "2.8.0",
+  "version": "2.8.0",
+  "_originalSource": "sinon-chai"
+}

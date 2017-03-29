@@ -1,0 +1,14 @@
+{
+  "name": "sinonjs",
+  "version": "v1.17.1",
+  "main": "sinon.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "_source": "nexus+http://nexus.hola.com/repository/bower/sinonjs",
+  "_target": "^1.14.1",
+  "_release": "v1.17.1",
+  "_originalSource": "sinonjs"
+}

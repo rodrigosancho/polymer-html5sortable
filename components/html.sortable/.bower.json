@@ -1,0 +1,13 @@
+{
+  "name": "html.sortable",
+  "homepage": "https://github.com/trofrigo/html5sortable",
+  "_release": "94f11c6650",
+  "_resolution": {
+    "type": "branch",
+    "branch": "polymer-compatibility",
+    "commit": "94f11c665055ca21487eedb4de01b0f69fa105e6"
+  },
+  "_source": "git://github.com/trofrigo/html5sortable.git",
+  "_target": "polymer-compatibility",
+  "_originalSource": "trofrigo/html5sortable"
+}
