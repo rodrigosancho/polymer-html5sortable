@@ -13,14 +13,13 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
   "homepage": "https://github.com/trofrigo/polymer-html5sortable",
-  "_release": "5f648aff16",
+  "_release": "56dc6351d8",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "5f648aff16e20543842e3624b313e1e76082c6a9"
+    "commit": "56dc6351d82e9f572071023f021fb97b156d6aca"
   },
   "_source": "git://github.com/trofrigo/polymer-html5sortable.git",
   "_target": "master",
-  "_originalSource": "trofrigo/polymer-html5sortable",
-  "_direct": true
+  "_originalSource": "trofrigo/polymer-html5sortable"
 }
