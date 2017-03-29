@@ -4,7 +4,8 @@
   "main": "html5-sortable.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "html.sortable": "trofrigo/html5sortable#polymer-compatibility"
+    "html.sortable": "trofrigo/html5sortable#polymer-compatibility",
+    "polymer-html5sortable": "trofrigo/polymer-html5sortable#master"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
