@@ -2,6 +2,140 @@
 
 <!--
 
+# html5-sortable
+
+[Polymer](https://www.polymer-project.org/) wrapper for [html5sortable](https://github.com/lukasoppermann/html5sortable) library.
+
+## Using the element
+
+This element must be placed always as a `parentNode` of a `dom-repeat` template.
+```
+<html5-sortable>
+    <template is="dom-repeat"
+              items="[[ items ]]">
+
+    </template>
+</html5-sortable>
+```
+
+
+### Basic list
+
+```
+<ul>
+    <html5-sortable>
+        <template is="dom-repeat"
+                  items="[[ items ]]">
+            <li>[[ item ]]</li>
+        </template>
+    </html5-sortable>
+</ul>
+```
+
+### Linked lists
+
+```
+<!-- var listItems = ['Item 1', 'Item 2', 'Item 3'] - ->
+<ul id="list">
+    <html5-sortable connect-with="connectedlist">
+        <template is="dom-repeat"
+                  items="[[ listItems ]]">
+            <li>[[ item ]]</li>
+        </template>
+    </html5-sortable>
+</ul>
+
+
+<!-- var gridItems = ['1', '2', '3'] - ->
+<div id="grid">
+    <html5-sortable connect-with="connectedlist">
+        <template is="dom-repeat"
+                  items="[[ gridItems ]]">
+            <li>[[ item ]]</li>
+        </template>
+    </html5-sortable>
+</div>
+```
+
+Note: Under the hood, the `<html5-sortable>` element will move the value from the original
+array to the new one every time you drag an element. After that, `dom-repeat` elements will
+notice the splices and rerender the lists. This functionality allows you to have your application
+model synchronized and ready to be used.
+
+### Infinite sortable tree (nested lists)
+
+
+```
+
+<!-- Defining the tree node element - ->
+
+<dom-module id="sortable-tree">
+    <template>
+        [[ rootNode.label ]]
+        <ul>
+            <html5-sortable connect-with="sortable-tree"
+                            style="min-height: 10px;">
+                <template is="dom-repeat"
+                          items="[[ rootNode.children ]]">
+                    <li>
+                        <sortable-tree root-node="[[ item ]]">
+                    </li>
+                </template>
+            </html5-sortable>
+        </ul>
+    </template>
+    <script>
+        Polymer({
+            is: 'tree',
+            properties : {
+                rootNode: Object
+            }
+        });
+    </script>
+</dom-module>
+```
+Note: In order to be able to drag elements into an empty children array,
+the `html5-sortable` element that surrounds the array's dom-repeat,
+must have a minimum height.
+
+```
+<!-- Defining the tree model - ->
+var tree = {
+    label : 'node 1',
+    children: [
+        {
+            label: 'node 1.1',
+            children: []
+        },
+        {
+            label: 'node 1.2',
+            children: [
+                {
+                    label: 'node 1.2.1',
+                    children: []
+                },
+                {
+                    label: 'node 1.2.2',
+                    children: []
+                },
+            ]
+        },
+        {
+            label: 'node 1.3',
+            children: []
+        },
+    ]
+};
+```
+
+Showing the tree
+
+```
+<sortable-tree root-node="[[ tree ]]"></sortable-tree>
+
+```
+
+
 @demo demo/index.html
 -->
 
@@ -103,7 +237,7 @@
                 this.fire('sort-stop', event);
             },
             /**
-             * This callback is called every time that an element is move from one list to another
+             * This callback is called every time that an element is moved, inside of a list or from one one to another
              * @param event
              * @private
              */
@@ -115,7 +249,7 @@
                     endparent = event.detail.endparent,
                     endrepeater = this._getRepeater(endparent),
                     oldindex = event.detail.oldindex,
-                    model;
+                    model = startrepeater.modelForElement(item)[startrepeater.as];
 
                 if (endparent === this && startparent === this) {
                     //Moving the element to this new index
@@ -123,7 +257,6 @@
                 } else if(endparent === this){
                     //Adding the element into the new parent
                     //Obtaining the model of the new item
-                    model = startrepeater.modelForElement(item).item;
                     endrepeater.splice('items', index, 0, model);
                 } else if(startparent == this) {
                     //Removing the element from the old parent
