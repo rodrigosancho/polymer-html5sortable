@@ -1,4 +1,4 @@
-# \<html5-sortable\>
+# polymer-html5sortable
 
 [Polymer](https://www.polymer-project.org/) wrapper for [html5sortable](https://github.com/lukasoppermann/html5sortable) library.
 

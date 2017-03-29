@@ -1,5 +1,5 @@
 {
-  "name": "html5-sortable",
+  "name": "polymer-html5sortable",
   "description": "Wrapper for html5sortable library",
   "main": "html5-sortable.html",
   "dependencies": {
