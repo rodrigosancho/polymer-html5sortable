@@ -216,6 +216,13 @@ Showing the tree
                     }
                 });
 
+                //Adding custom children selector function
+                config.getChildren = function(element){
+                    return Polymer.dom(element).children.filter(function (element) {
+                        return element.tagName.toLowerCase() !== 'template';
+                    });
+                };
+
                 this.sortable = sortable(this, config);
             },
             destroy: function () {
