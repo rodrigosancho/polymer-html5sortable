@@ -1,10 +1,19 @@
 {
   "name": "polymer-html5sortable",
   "description": "Wrapper for html5sortable library",
-  "main": "html5-sortable.html",
+  "main": "polymer-html5sortable.html",
+  "keywords": [
+    "Polymer",
+    "webcomponent",
+    "sortable"
+  ],
+  "authors": [
+    "Rodrigo Sancho <https://github.com/trofrigo>"
+  ],
+  "license": "MIT",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "html.sortable": "trofrigo/html5sortable#polymer-compatibility"
+    "html5sortable": "lukasoppermann/html5sortable#v0.4.5"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

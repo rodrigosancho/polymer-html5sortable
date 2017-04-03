@@ -1,10 +1,19 @@
 {
   "name": "polymer-html5sortable",
   "description": "Wrapper for html5sortable library",
-  "main": "html5-sortable.html",
+  "main": "polymer-html5sortable.html",
+  "keywords": [
+    "Polymer",
+    "webcomponent",
+    "sortable"
+  ],
+  "authors": [
+    "Rodrigo Sancho <https://github.com/trofrigo>"
+  ],
+  "license": "MIT",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "html.sortable": "trofrigo/html5sortable#polymer-compatibility"
+    "html5sortable": "lukasoppermann/html5sortable#v0.4.5"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
@@ -13,11 +22,11 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
   "homepage": "https://github.com/trofrigo/polymer-html5sortable",
-  "_release": "dc1242be3a",
+  "_release": "5effe308cb",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "dc1242be3a1ecb5ea56bdda1cefb0028b1d1eb89"
+    "commit": "5effe308cbae2e2a40de8b5dc07112fc8563147f"
   },
   "_source": "git://github.com/trofrigo/polymer-html5sortable.git",
   "_target": "master",

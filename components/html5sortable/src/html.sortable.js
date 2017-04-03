@@ -443,8 +443,8 @@ function _debounce (fn, delay, context) {
   }
 }
 
-function _getChildren(element) {
-  return element.children;
+var _getChildren = function (element) {
+  return element.children
 }
 
 /*
@@ -454,10 +454,6 @@ function _getChildren(element) {
  */
 var sortable = function (sortableElements, options) {
   var method = String(options)
-
-  if (typeof options.getChildren === 'function'){
-    _getChildren = options.getChildren
-  }
 
   options = (function (options) {
     var result = {
@@ -472,12 +468,14 @@ var sortable = function (sortableElements, options) {
       debounce: 0
     }
     for (var option in options) {
-      if(typeof options[option] !== 'function'){
-        result[option] = options[option]
-      }
+      result[option] = options[option]
     }
     return result
   })(options)
+
+  if (options && typeof options.getChildren === 'function') {
+    _getChildren = options.getChildren
+  }
 
   if (typeof sortableElements === 'string') {
     sortableElements = document.querySelectorAll(sortableElements)
