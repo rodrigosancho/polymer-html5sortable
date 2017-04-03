@@ -171,3 +171,29 @@ $ polymer test
 ```
 
 Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+
+
+##Changelog
+
+
+### v0.1.2
+* Added MIT license
+* Changed the html5Sortable dependency from the custom fork to the initial project
+### v0.1.1
+* Added compatibility with the new html5sortable config param, `getchildren`
+### v0.1.0 
+* First version of the element
+
+## Contributing
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
+
+## License
+
+Copyright (c) 2017 Rodrigo Sancho
+
+Licensed under the [MIT license](https://github.com/trofrigo/global-variable/blob/master/LICENSE).
