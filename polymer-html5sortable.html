@@ -262,11 +262,11 @@ Showing the tree
 
                 //The index returned by the event, are not correct because it excludes those which are no selectable
                 index = [].indexOf.call(endparent.children, item);
-                oldindex = endrepeater.indexForElement(item);
+                oldindex = startrepeater.indexForElement(item);
 
                 if (endparent === this && startparent === this) {
                     //Moving the element to this new index
-                    endrepeater.splice('items', index, 0, endrepeater.splice('items', oldindex, 1)[0]);
+                    endrepeater.splice('items', index, 0, startrepeater.splice('items', oldindex, 1)[0]);
                 } else if(endparent === this){
                     //Adding the element into the new parent
                     //Obtaining the model of the new item
