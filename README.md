@@ -4,7 +4,7 @@
 
 
 ## Demo
-[https://trofrigo.github.io/polymer-html5sortable/](https://trofrigo.github.io/polymer-html5sortable/)
+[https://rodrigosancho.github.io/polymer-html5sortable/](https://rodrigosancho.github.io/polymer-html5sortable/)
 
 ## Using the element
 
